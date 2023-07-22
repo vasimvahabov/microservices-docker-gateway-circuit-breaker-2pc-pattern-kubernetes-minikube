@@ -1,0 +1,7 @@
+server:
+  port: 8102    
+               
+info:
+  app:
+    name: Gateway Profile 2       
+       

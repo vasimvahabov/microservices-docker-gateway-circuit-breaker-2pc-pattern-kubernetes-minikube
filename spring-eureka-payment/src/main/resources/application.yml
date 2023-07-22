@@ -1,0 +1,24 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://vhost1:8001/eureka/, http://vhost2:8002/eureka/, http://vhost3:8003/eureka/
+  
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+  info:
+    env:
+      enabled: true
+      
+spring:
+  application:
+    name: payment-service
+    

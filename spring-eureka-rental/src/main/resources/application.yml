@@ -1,0 +1,73 @@
+eureka: 
+  client:
+    service-url: 
+      defaultZone: http://vhost1:8001/eureka/, http://vhost2:8002/eureka/, http://vhost3:8003/eureka/    
+  
+  instance:
+    instance-id: ${spring.application.name}:${server.port} 
+   
+resilience4j:
+  circuitbreaker:
+    instances:
+      book-service:
+        register-health-indicator: true        
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 4
+        wait-duration-in-open-state: 30s
+        automatic-transition-from-open-to-half-open-enabled: true
+        permitted-number-of-calls-in-half-open-state: 2
+        sliding-window-size: 6
+        sliding-window-type: count-based
+
+#      payment-service:
+#        register-health-indicator: true
+#        failure-rate-threshold: 50
+#        minimum-number-of-calls: 10
+#        max-wait-duration-in-half-open-state: 30
+#        automatic-transition-from-open-to-half-open-enabled: true
+#        permitted-number-of-calls-in-half-open-state: 2
+#        sliding-window-size: 4
+#        sliding-window-type: count-based    
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        
+#  health:
+#    circuitbreakers:
+#      enabled: true
+  endpoint:
+    health:
+      show-details: ALWAYS
+  info: 
+    env:
+      enabled: true           
+         
+spring: 
+  application:
+    name: rental-service
+    
+  liquibase:
+    change-log: classpath:db/changelog/changelog-root.yml
+    
+#  sql:
+#    init:
+#      mode: ALWAYS 
+      
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_rentals
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+        
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+#    defer-datasource-initialization: true 
+    hibernate:
+      ddl-auto: none
+         
+  
+  

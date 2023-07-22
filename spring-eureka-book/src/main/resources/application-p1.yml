@@ -1,0 +1,6 @@
+server:
+  port: 8201
+  
+info:
+  app:
+    name: Book Service Profile 1

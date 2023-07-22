@@ -1,0 +1,7 @@
+server:
+    port: 8302
+        
+info: 
+  app:
+    name:  Rental Service Profile 2
+         

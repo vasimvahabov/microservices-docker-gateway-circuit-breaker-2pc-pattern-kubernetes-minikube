@@ -1,0 +1,7 @@
+server:
+  port: 8103
+               
+info:
+  app:
+    name: Gateway Profile 3      
+       

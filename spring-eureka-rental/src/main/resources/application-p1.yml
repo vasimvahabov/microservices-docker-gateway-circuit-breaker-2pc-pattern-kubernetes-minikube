@@ -1,0 +1,7 @@
+server:
+    port: 8301
+        
+info: 
+  app:
+    name:  Rental Service Profile 1
+         

@@ -1,0 +1,9 @@
+server:
+    port: 8003
+eureka:
+   instance:
+      hostname: vhost3
+      instance-id: ${spring.application.name}:${server.port}
+   client:
+      service-url:
+         defaultZone: http://vhost1:8001/eureka, http://vhost2:8002/eureka

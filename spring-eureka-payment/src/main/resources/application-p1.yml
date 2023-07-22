@@ -1,0 +1,6 @@
+server:
+  port: 8501
+  
+info:
+  app:
+    name: Payment Service Profile 1

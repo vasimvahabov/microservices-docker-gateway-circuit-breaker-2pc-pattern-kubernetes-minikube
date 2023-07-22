@@ -1,0 +1,52 @@
+#eureka:
+#  client:
+##    service-url: 
+#      defaultZone: http://vhost1:8001/eureka/, http://vhost2:8002/eureka/, http://vhost3:8003/eureka/ 
+#  instance:
+#    instance-id: ${spring.application.name}:${server.port}
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"  
+#  info: 
+#    env:
+#      enabled: true      
+         
+spring:
+  application:
+    name: book-service  
+#  main.allow-bean-definition-overriding: true
+
+  sql:
+    init:
+      mode: always
+    
+#  datasource:
+#    url: jdbc:mysql://db:3306/db_books
+#    username: root
+#    password: mysql 
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    
+#  datasource:
+#    url: ${SPRING_DATASOURCE_URL}
+#    username: ${SPRING_DATASOURCE_USERNAME}
+#    password: ${SPRING_DATASOURCE_PASSWORD} 
+#    driver-class-name: com.mysql.cj.jdbc.Driver 
+    
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD} 
+    driver-class-name: com.mysql.cj.jdbc.Driver 
+   
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    defer-datasource-initialization: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+       
+       
+         

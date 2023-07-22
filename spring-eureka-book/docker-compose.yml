@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    restart: always
+    image: docker_mysql_api:0.0.1
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_books
+      SPRING_DATASOURCE_USERNAME:  
+      SPRING_DATASOURCE_PASSWORD:  
+#    volumes:
+#      - web:/var/lib/mysql
+    ports:
+      - 8080:8080
+    depends_on: 
+      db:
+        condition: service_healthy
+    
+  db:
+    image: mysql:8.0.33
+    restart: always
+    container_name: server_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD:  
+      MYSQL_USER: 
+      MYSQL_PASSWORD: 
+      MYSQL_DATABASE: db_books
+    healthcheck:
+      test: mysql $${MYSQL_DATABASE} --user=$${MYSQL_USER} --password=$${MYSQL_PASSWORD} --silent --execute "SELECT 0;"
+      interval: 10s
+      retries: 2
+      timeout: 5s
+      start_period: 20s
+       
+    ports:
+      - 3307:3306
+    volumes:  
+      - server_mysql:/var/lib/mysql
+   
+volumes:
+  server_mysql:  
+    name: server_mysql 
+       

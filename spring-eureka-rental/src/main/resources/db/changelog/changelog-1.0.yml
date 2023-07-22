@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: "1"
+      author: Liquibase
+      changes:
+        - createTable: 
+            tableName: rentals_
+            columns:
+              - column:
+                  name: id_
+                  type: int
+                  autoIncrement: true   
+                  startWith: 1
+                  constraints:
+                    primaryKey: true
+                    
+              - column:
+                  name: pick_up_date_
+                  type: datetime
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
+                    
+              - column:
+                  name: drop_off_date_
+                  type: datetime
+                  defaultValueComputed: (adddate(now(),1))
+                  constraints:
+                    nullable: false
+                    
+              - column:
+                  name: user_id_
+                  type: int 
+                  constraints:
+                    nullable: false
+                    
+              - column:
+                  name: book_id_
+                  type: int 
+                  constraints:
+                    nullable: false
+                   
+                    

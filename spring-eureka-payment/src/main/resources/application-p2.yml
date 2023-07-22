@@ -1,0 +1,6 @@
+server:
+  port: 8502
+  
+info:
+  app:
+    name: Payment Service Profile 2

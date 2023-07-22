@@ -1,0 +1,52 @@
+eureka:
+  client:
+    service-url: 
+      defaultZone: http://vhost1:8001/eureka/,http://vhost2:8002/eureka/,http://vhost3:8003/eureka/  
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+   
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
+  endpoint:
+    gateway:
+      enabled: true
+    health:
+      show-details: always            
+   
+spring:    
+  application:
+    name: eureka-gateway
+    
+  cloud:
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user-service-1
+          uri: lb://user-service
+          predicates:
+           - Path=/user/list/all
+           - Method=GET
+          filters:
+           - AuthFilter 
+           
+        - id: user-service-2
+          uri: lb://user-service
+          predicates:
+           - Path=/user/log-in
+           - Method=POST
+     
+           
+#   devtools: 
+#      restart: 
+#         additional-paths: ../spring-eureka-book, ../spring-eureka-user, ../spring-eureka-rental
+                    
+               
+          
+       

@@ -1,0 +1,42 @@
+apiVersion:  v1
+kind: Service
+metadata:
+  name: service-app-book
+spec:
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: app-book
+  type: NodePort
+  
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: deployment-app-book
+spec:
+  selector:
+    matchLabels: 
+      app: app-book
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: app-book
+    spec:
+      containers:
+        - name: app-book
+          image: app-book:0.0.1
+          ports:
+            - containerPort: 8080
+          env: 
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://service-mysql/db_books
+            - name: SPRING_DATASOURCE_USERNAME
+              value: 
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: 
+             

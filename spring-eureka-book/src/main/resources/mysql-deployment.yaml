@@ -1,0 +1,85 @@
+# MYSQL Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-mysql
+  labels:
+    app: service-mysql
+    tier: database
+spec:
+  ports: 
+    - port: 3307
+      targetPort: 3307
+  selector:
+    app: mysql
+    tier: database
+  clusterIP: None
+# MYSQL Service
+
+---
+
+# MYSQL PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-mysql
+  labels:
+    app: pvc-mysql
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+# MYSQL PersistentVolumeClaim
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-mysql
+  labels:
+    app: mysql
+    tier: database
+spec:
+  selector: 
+    matchLabels:
+      app: mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:  
+        app: mysql
+        tier: database
+    spec:
+      containers:
+        - name: mysql
+          image: mysql
+          imagePullPolicy: "IfNotPresent"
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: 
+            - name: MYSQL_USER
+              value: 
+            - name: MYSQL_PASSWORD
+              value: 
+            - name: MYSQL_DATABASE
+              value: db_books
+
+          ports:
+            - containerPort: 3307 
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-persistance-storage
+      volumes:
+        - name: mysql-persistance-storage
+          persistentVolumeClaim:
+            claimName: pvc-mysql
+
+            
+            
+            
+            

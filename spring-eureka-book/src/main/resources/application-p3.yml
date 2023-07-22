@@ -1,0 +1,6 @@
+server:
+  port: 8203
+  
+info:
+  app:
+    name: Book Service Profile 3
